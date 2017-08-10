@@ -33,7 +33,7 @@ var generatePackage = function(websiteJSON, iconsDir, certData, pKeyData, interm
   var icons = zip.folder('icon.iconset'),
     addIconFile = function(name, content) {
       content = typeof content === 'string' ? fs.readFileSync(content) : content;
-      manifest['icon.iconset\\/' + name] = utils.sha1(content);
+      manifest['icon.iconset\u005C/' + name] = utils.sha1(content);
       icons.file(name, content);
     };
   if (typeof iconsDir === 'object') {
