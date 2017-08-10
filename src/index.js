@@ -1,3 +1,4 @@
+var process = require('child_process');
 var fs = require('fs'),
   path = require('path'),
   utils = require("./utils"),
@@ -33,7 +34,7 @@ var generatePackage = function(websiteJSON, iconsDir, certData, pKeyData, interm
   var icons = zip.folder('icon.iconset'),
     addIconFile = function(name, content) {
       content = typeof content === 'string' ? fs.readFileSync(content) : content;
-      manifest['icon.iconset\u005C/' + name] = utils.sha1(content);
+      manifest['icon.iconset/' + name] = utils.sha1(content);
       icons.file(name, content);
     };
   if (typeof iconsDir === 'object') {
@@ -55,7 +56,8 @@ var generatePackage = function(websiteJSON, iconsDir, certData, pKeyData, interm
 
   // manifest.json
   var manifestContent = new Buffer(JSON.stringify(manifest));
-  zip.file('manifest.json', manifestContent);
+  var manifestContentData = process.execSync(`echo '${m.toString()}' | sed  's%/%\\\/%g'`);
+  zip.file('manifest.json', manifestContentData);
 
   // signature
   if (typeof certData === 'string') {
