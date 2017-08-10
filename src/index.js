@@ -56,7 +56,7 @@ var generatePackage = function(websiteJSON, iconsDir, certData, pKeyData, interm
 
   // manifest.json
   var manifestContent = new Buffer(JSON.stringify(manifest));
-  var manifestContentData = process.execSync(`echo '${JSON.stringify(JSON.parse(manifestContent.toString()))}' | sed  's%/%\\\/%g'`);
+  var manifestContentData = process.execSync(`echo '${manifestContent.toString()}' | sed  's#/#\\\\/#g'`);
   zip.file('manifest.json', manifestContentData);
 
   // signature
