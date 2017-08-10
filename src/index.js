@@ -69,7 +69,7 @@ var generatePackage = function(websiteJSON, iconsDir, certData, pKeyData, interm
   if (typeof intermediate === 'string') {
     intermediate = new Buffer(intermediate);
   }
-  var pkcs7sig = pkcs7.sign(certData, pKeyData, manifestContent, intermediate),
+  var pkcs7sig = pkcs7.sign(certData, pKeyData, manifestContentData, intermediate),
     content = PKCS7_CONTENT_REGEX.exec(pkcs7sig.toString());
 
   content = new Buffer(content[1], 'base64');
