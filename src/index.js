@@ -54,6 +54,7 @@ var generatePackage = function(websiteJSON, iconsDir, certData, pKeyData, interm
   }
 
   // manifest.json
+  console.log(JSON.stringify(manifest))
   var manifestContent = new Buffer(JSON.stringify(manifest));
   zip.file('manifest.json', manifestContent);
 
